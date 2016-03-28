@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
+        
         <h1> Personne</h1>
         <form method="GET" action="ServletListePersonne">
             nom: <input type="text" name="nom"><br>
