@@ -40,15 +40,24 @@ public class ServletCreationPersonne extends HttpServlet {
                 prenom = request.getParameter("prenom");
                 adresse = request.getParameter("adresse");
                 ville = request.getParameter("ville");
-
+                String result;
 
                 if (nom != null && prenom != null) {
                     if (!nom.equals("") && !prenom.equals("")) {
                         PersonneDAO p = new PersonneDAO();
+                        // Floriane: check DAO
                         Long id = p.create(new Personne(nom, prenom, adresse, ville));
                         out.println("<p>" + id + "/" + nom + "/" + prenom + "/" + adresse + "/" + ville + "</p>");
+                        result = "ajout_suc";
+                        request.setAttribute("result", result);
+                        request.getRequestDispatcher("gestionPersonne.jsp").forward(request, response);
+
+
                     } else {
                         out.println("<p>nom et prenom ne doivent pas etre null !!</p>");
+                        result = "ajout_fail";
+                        request.setAttribute("result_ajout", result);
+                        request.getRequestDispatcher("gestionPersonne.jsp").forward(request, response);
                     }
                 }
                 /* TODO output your page here

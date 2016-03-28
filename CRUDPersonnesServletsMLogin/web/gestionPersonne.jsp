@@ -4,6 +4,8 @@
     Author     : floriane.sapin
 --%>
 
+<%@page import="Model.Personne"%>
+<%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,12 +15,30 @@
         <%@ include file="includes/plugins.html" %>
     </head>
     <body>
-        <%@ include file="menu.html" %>
+        <%@ include file="includes/menu.html" %>
+
+        <%-- Permet de faire disparaitre les alertes après 4 secondes--%>
+        <script>
+            window.setTimeout(function () {
+                $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                    $(this).remove();
+                });
+            }, 4000);
+        </script>
+
+
+        <% if ((String) request.getAttribute("result") == "ajout_suc") {%>
+        <div class="alert alert-success" id="popup" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Success! </strong>La personne à été créer avec succès
+        </div> <%
+            }%>
+
 
         <div class="panel panel-default">
             <!--<div class="panel-heading"><p> Personne</p></div>-->
             <div class="panel-body">
-                <h1> Personne </h1>
+                <h1> Personne </h1>             
 
                 <form method="POST" action="ServletListePersonne">
 
@@ -52,8 +72,8 @@
                     <br></br>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default" id="rechercher" onclick="this.form.action='ServletListePersonne'">Rechercher</button>
-                            <button type="submit" class="btn btn-default" id="creer" onclick="this.form.action='ServletCreationPersonne'">Créer</button>
+                            <button type="submit" class="btn btn-default" id="rechercher" onclick="this.form.action = 'ServletListePersonne'">Rechercher</button>
+                            <button type="submit" class="btn btn-default" id="creer" onclick="this.form.action = 'ServletCreationPersonne'">Créer</button>
                             <button type="submit" class="btn btn-default" id="maj">Mettre à jour</button>
                         </div>
                     </div>
@@ -65,6 +85,7 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h1> Liste des personnes </h1></div>
             <div class="panel-body">
+
                 <table class="table table-striped">
                     <tr>
                         <th>Nom</th>
@@ -74,7 +95,13 @@
                         <th>Modifier</th>
                         <th>Supprimer</th>
                     </tr>
-
+                    <% if (request.getAttribute("personnes") != null) {
+                            Vector<Personne> personnes = (Vector<Personne>) request.getAttribute("personnes");
+                            for (int i = 0; i < personnes.size(); i++) {
+                                Personne p = personnes.elementAt(i);
+                                out.println("<tr><td>" + p.getNom() + "</td><td>" + p.getPrenom() + "</td><td>" + p.getAdresse() + "</td><td>" + p.getVille() + "</td><td><a href='ServletMAJPersonne?id=" + p.getId() + "'>edition</a></td><td><a href='ServletEffacerPersonne?id=" + p.getId() + "'>supprimer</a></td></tr>");
+                            }
+                        }%>
                     <tr>
                         <td></td>
                         <td></td>

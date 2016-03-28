@@ -20,11 +20,11 @@ public class DBDataSource {
 
     public static Connection getJDBCConnection() {
 
-
         try {
             if (ds == null) {
+                System.out.println("etape1");
                 ds = new OracleDataSource();
-
+            
                 ds.setDriverType("thin");
                 ds.setServerName("ne-ege-leto.ig.he-arc.ch");
                 ds.setPortNumber(1521);
@@ -34,11 +34,11 @@ public class DBDataSource {
             }
             return ds.getConnection();
             // c = ds.getConnection();ds=new DataSource();
-            } catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(DBDataSource.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("pas de connexion");
             return null;
         }
-
 
     }
 }

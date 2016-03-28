@@ -24,6 +24,9 @@ public class PersonneDAO {
 
     public Vector<Personne>  research(Personne p) {
         Connection conn = DBDataSource.getJDBCConnection();
+        if( conn == null){
+            System.out.println("Connexion null");
+        }
         Statement stmt = null;
         ResultSet rs = null;
         Vector<Personne> resultList=new Vector();

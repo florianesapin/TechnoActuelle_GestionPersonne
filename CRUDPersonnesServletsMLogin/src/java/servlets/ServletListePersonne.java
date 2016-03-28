@@ -46,6 +46,8 @@ public class ServletListePersonne extends HttpServlet {
 
                 PersonneDAO pdao = new PersonneDAO();
                 Vector<Personne> v = pdao.research(new Personne(nom, prenom, adresse, ville));
+                    request.setAttribute("personnes", v);
+                    request.getRequestDispatcher("gestionPersonne.jsp").forward(request, response);
                 out.println("<table>");
                 for (int i = 0; i < v.size(); i++) {
                     Personne p = v.elementAt(i);
