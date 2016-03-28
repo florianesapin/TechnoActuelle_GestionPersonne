@@ -10,42 +10,83 @@
     <head>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <%@ include file="includes/plugins.html" %>
     </head>
     <body>
-        
-        <h1> Personne</h1>
-        <form method="GET" action="ServletListePersonne">
-            nom: <input type="text" name="nom"><br>
-            prenom : <input type="text" name="prenom"><br>
-            adresse: <input type="text" name="adresse"><br>
-            ville :  <input type="text" name="ville"><br>
-            <input type="submit" value="Rechercher">
-            <input type="submit" value="Créer">
-            <input type="submit" value="Mettre à jour">
-        </form>
+        <%@ include file="menu.html" %>
 
-        <h1> Liste des personnes </h1>
+        <div class="panel panel-default">
+            <!--<div class="panel-heading"><p> Personne</p></div>-->
+            <div class="panel-body">
+                <h1> Personne </h1>
 
-        <table>
-            <tr>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Ville</th>
-                <th>Adresse</th>
-                <th>Modifier</th>
-                <th>Supprimer</th>
-            </tr>
+                <form method="POST" action="ServletListePersonne">
 
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+                    <div class="form-group">
+                        <label for="inputNom" class="col-md-1 control-label"><p>Nom</p></label>
+                        <div class="col-md-4">
+                            <input class="form-control" id="inputNom" name="nom">
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="form-group">
+                        <label for="inputPrenom" class="col-md-1 control-label"><p>Prénom</p></label>
+                        <div class="col-md-4">
+                            <input class="form-control" id="inputPrenom" name="prenom">
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="form-group">
+                        <label for="inputAdresse" class="col-md-1 control-label"><p>Adresse</p></label>
+                        <div class="col-md-4">
+                            <input class="form-control" id="inputAdresse" name="adresse">
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="form-group">
+                        <label for="inputVille" class="col-md-1 control-label"><p>Ville</p></label>
+                        <div class="col-md-4">
+                            <input class="form-control" id="inputVille" name="ville">
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default" id="rechercher" onclick="this.form.action='ServletListePersonne'">Rechercher</button>
+                            <button type="submit" class="btn btn-default" id="creer" onclick="this.form.action='ServletCreationPersonne'">Créer</button>
+                            <button type="submit" class="btn btn-default" id="maj">Mettre à jour</button>
+                        </div>
+                    </div>
 
-        </table>
+                </form>
+            </div>
+        </div>
 
+        <div class="panel panel-default">
+            <div class="panel-heading"><h1> Liste des personnes </h1></div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Ville</th>
+                        <th>Adresse</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
 
         <a href='index.jsp'>index</a>
     </body>

@@ -28,6 +28,7 @@ public class ServletCreationPersonne extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String nom = null, prenom = null, adresse = null, ville = null;
@@ -39,6 +40,7 @@ public class ServletCreationPersonne extends HttpServlet {
                 prenom = request.getParameter("prenom");
                 adresse = request.getParameter("adresse");
                 ville = request.getParameter("ville");
+
 
                 if (nom != null && prenom != null) {
                     if (!nom.equals("") && !prenom.equals("")) {
@@ -83,6 +85,7 @@ public class ServletCreationPersonne extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         processRequest(request, response);
     }
 
