@@ -20,19 +20,39 @@
         <%-- Permet de faire disparaitre les alertes après 4 secondes--%>
         <script>
             window.setTimeout(function () {
-                $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(".alert_disparition").fadeTo(500, 0).slideUp(500, function () {
                     $(this).remove();
                 });
             }, 4000);
         </script>
 
-
+        <%-- Les différentes alertes affichées --%>
         <% if ((String) request.getAttribute("result") == "ajout_suc") {%>
-        <div class="alert alert-success" id="popup" role="alert">
+        <div class="alert_disparition alert alert-success" id="popup" role="alert">
             <button type="button" class="close" data-dismiss="alert">x</button>
-            <strong>Success! </strong>La personne à été créer avec succès
+            <strong>Success! </strong>La personne à été créée avec succès
         </div> <%
             }%>
+
+        <% if ((String) request.getAttribute("result") == "suppr_suc") {%>
+        <div class="alert_disparition alert alert-success" id="popup" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Success! </strong>La personne à été supprimée avec succès
+        </div> <%
+            }%>
+
+        <% if (request.getAttribute("personneASupprimer") != null) {
+                Personne p = (Personne) request.getAttribute("personneASupprimer");%>
+        <div class="alert alert-warning" id="popup" role="alert">
+            
+            <strong>Warning! </strong> <p>Voulez-vous vraiment supprimer la personne <%out.println(p.getNom());%> <%out.println(p.getPrenom());%></p>
+            <a href='ServletFaireEffacementPersonne?id=<%out.println(p.getId());%>'>Oui</a>
+            <a href=''>Non</a>
+        </div> <%
+            }%>
+
+
+
 
 
         <div class="panel panel-default">

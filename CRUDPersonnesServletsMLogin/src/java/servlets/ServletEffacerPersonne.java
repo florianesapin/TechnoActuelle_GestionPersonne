@@ -32,6 +32,7 @@ public class ServletEffacerPersonne extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String result;
 
         try {
             HtmlHttpUtils.doHeader("Etes-vous sur de vouloir effacer la personne ? ", out);
@@ -45,12 +46,16 @@ public class ServletEffacerPersonne extends HttpServlet {
 
                         idl = new Long(id);
                         Vector<Personne> v = pdao.research(new Personne(idl, null, null, null, null));
-                        out.println("<table>");
+                        //out.println("<table>");
                         for (int i = 0; i < v.size(); i++) {
                             Personne p = v.elementAt(i);
-                            out.println("<tr><td>" + p.getId() + " : " + p.getNom() + " , " + p.getPrenom() + " , " + p.getAdresse() + " , " + p.getVille() + "</td><td><a href='ServletFaireEffacementPersonne?id=" + p.getId() + "'>oui supprimer</a></td></tr>");
+                            result = "confirm_suppr";
+                            //request.setAttribute("result", result);
+                            request.setAttribute("personneASupprimer", p);
+                            request.getRequestDispatcher("gestionPersonne.jsp").forward(request, response);
+                            //out.println("<tr><td>" + p.getId() + " : " + p.getNom() + " , " + p.getPrenom() + " , " + p.getAdresse() + " , " + p.getVille() + "</td><td><a href='ServletFaireEffacementPersonne?id=" + p.getId() + "'>oui supprimer</a></td></tr>");
                         }
-                        out.println("</table>");
+                        //out.println("</table>");
 
 
                     }

@@ -31,16 +31,22 @@ public class ServletFaireEffacementPersonne extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String id = null;
+        System.out.println("page");
         try {
             if (HtmlHttpUtils.isAuthenticate(request)) {
+                System.out.println("loguer");
                 id = request.getParameter("id");
                 if (id != null) {
+                    System.out.println("param");
                     if (!id.equals("")) {
                         PersonneDAO pdao = new PersonneDAO();
                         pdao.delete(new Personne(Long.parseLong(id), null, null, null, null));
                     }
                 }
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                        String result = "suppr_suc";
+                        request.setAttribute("result", result);
+                        request.getRequestDispatcher("gestionPersonne.jsp").forward(request, response);
+                
             }
         } finally {
             out.close();
