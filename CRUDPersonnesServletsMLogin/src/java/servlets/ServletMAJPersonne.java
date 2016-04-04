@@ -43,6 +43,8 @@ public class ServletMAJPersonne extends HttpServlet {
                         idl = new Long(id);
 
                         Vector<Personne> v = pdao.research(new Personne(idl, null, null, null, null));
+                        
+;
 
                         for (int i = 0; i < v.size(); i++) {//UN SEULEMENT
                             Personne p = v.elementAt(i);
@@ -55,8 +57,10 @@ public class ServletMAJPersonne extends HttpServlet {
                             out.println(" ville :  <input type='text' name='ville' value='" + p.getVille() + "'><br>");
                             out.println("<input type='submit' value='MAJ personne'>");
                             out.println("</form>");
-
+                        request.setAttribute("personneAMAJ", p);
+                        request.getRequestDispatcher("gestionPersonne.jsp").forward(request, response);
                         }
+
                     }
                 }
             }

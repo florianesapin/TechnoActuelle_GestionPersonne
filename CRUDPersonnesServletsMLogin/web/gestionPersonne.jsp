@@ -26,6 +26,18 @@
             }, 4000);
         </script>
 
+        <%-- Permet de renseigner les champ du formulaire afin de mettre à jour une personne --%>
+        <script>
+            function modification(nom, prenom, adresse, ville)
+            {
+                document.getElementById('inputNom').value = nom;
+                alert(nom);
+                document.getElementById('inputPrenom').value = prenom;
+                document.getElementById('inputAdresse').value = adresse;
+                document.getElementById('inputVille').value = ville;
+            }
+        </script>
+
         <%-- Les différentes alertes affichées --%>
         <% if ((String) request.getAttribute("result") == "ajout_suc") {%>
         <div class="alert_disparition alert alert-success" id="popup" role="alert">
@@ -44,12 +56,19 @@
         <% if (request.getAttribute("personneASupprimer") != null) {
                 Personne p = (Personne) request.getAttribute("personneASupprimer");%>
         <div class="alert alert-warning" id="popup" role="alert">
-            
+
             <strong>Warning! </strong> <p>Voulez-vous vraiment supprimer la personne <%out.println(p.getNom());%> <%out.println(p.getPrenom());%></p>
             <a href='ServletFaireEffacementPersonne?id=<%out.println(p.getId());%>'>Oui</a>
             <a href=''>Non</a>
         </div> <%
             }%>
+
+        <% if (request.getAttribute("personneAMAJ") != null) {
+                Personne personneAModifier = (Personne) request.getAttribute("personneAMAJ");%>
+                <div onload="modification(<%personneAModifier.getNom();%>, <%personneAModifier.getPrenom();%>, <%personneAModifier.getAdresse();%>, <%personneAModifier.getVille();%>);">
+                </div>
+        <%--modification(<%out.println(personneAModifier.getNom());%>, <%out.println(personneAModifier.getPrenom());%>, <%out.println(personneAModifier.getAdresse());%>, <%out.println(personneAModifier.getVille());%>);--%>
+        <%}%>
 
 
 
