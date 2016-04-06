@@ -84,6 +84,6 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
-        <welcome-file>faces/gestionPersonne.jsp</welcome-file>
+        <welcome-file>faces/index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
