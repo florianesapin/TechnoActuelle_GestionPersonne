@@ -21,6 +21,8 @@ public class Utilisateurs {
             users.put("francillon","pfrancillon");
             users.put("dupont","pdupont");
             users.put("t","t");
+            
+            Scores.initilisation();
         }     
         System.out.println(user + " " + pw +" " +users.get(user));
         if(users.get(user)!=null){
