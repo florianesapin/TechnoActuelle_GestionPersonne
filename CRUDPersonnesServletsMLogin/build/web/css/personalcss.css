@@ -1,0 +1,23 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 28, 2016, 1:51:09 PM
+    Author     : floriane.sapin
+*/
+/* ajout d'une marge avec le bord de la page' */
+.panel-default{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.alert{
+    margin-left: 10px;
+    margin-right: 10px; 
+}
+
+.navbar-default .navbar-brand{
+    color: #1D63CD;
+}
