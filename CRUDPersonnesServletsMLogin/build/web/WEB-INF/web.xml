@@ -85,5 +85,9 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
         <welcome-file>login.jsp</welcome-file>
+<<<<<<< HEAD
+=======
+        <welcome-file>faces/index.jsp</welcome-file>
+>>>>>>> 08752181c97f39d570fc3a3733d0ea6c4a8f4e30
     </welcome-file-list>
 </web-app>
