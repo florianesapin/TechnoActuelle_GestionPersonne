@@ -8,7 +8,7 @@ package MemoryUser;
 import java.util.Hashtable;
 
 /**
- *
+ *-
  * @author stephane.grangier
  */
 public class Scores {
