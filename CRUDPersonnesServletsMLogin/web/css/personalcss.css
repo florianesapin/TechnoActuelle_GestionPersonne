@@ -21,3 +21,7 @@ and open the template in the editor.
 .navbar-default .navbar-brand{
     color: #1D63CD;
 }
+
+#maj{
+    visibility: hidden;
+}

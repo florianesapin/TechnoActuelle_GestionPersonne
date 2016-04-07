@@ -41,11 +41,17 @@ public class ServletFaireEffacementPersonne extends HttpServlet {
                     if (!id.equals("")) {
                         PersonneDAO pdao = new PersonneDAO();
                         pdao.delete(new Personne(Long.parseLong(id), null, null, null, null));
-                    }
-                }
                         String result = "suppr_suc";
                         request.setAttribute("result", result);
                         request.getRequestDispatcher("gestionPersonne.jsp").forward(request, response);
+                    }
+                    else{
+                        String result = "suppr_fail";
+                        request.setAttribute("result", result);
+                        request.getRequestDispatcher("gestionPersonne.jsp").forward(request, response);
+                    }
+                }
+
                 
             }
         } finally {

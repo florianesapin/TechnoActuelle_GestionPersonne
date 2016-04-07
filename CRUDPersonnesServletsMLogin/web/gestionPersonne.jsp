@@ -13,8 +13,40 @@
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@ include file="includes/plugins.html" %>
+                <%-- Permet de masquer mettre à jour --%>
+        <script language="Javascript">
+            function masqueMAJ()
+            {
+                document.getElementById('maj').style.visibility='visible';
+                document.getElementById('rechercher').style.visibility='visible';
+                document.getElementById('creer').style.visibility='visible';
+            }
+        </script>
+        
+        <script language="Javascript">
+            function masqueCreer()
+            {
+                document.getElementById('maj').style.visibility='visible';
+                document.getElementById('rechercher').style.visibility='visible';
+                document.getElementById('creer').style.visibility='hidden';
+            }
+        </script>
+        
+        <%-- Permet de renseigner les champ du formulaire afin de mettre à jour une personne --%>
+        <script language="Javascript">
+            function modification()
+            { 
+                <% if (request.getAttribute("personneAMAJ") != null) {%>
+                document.getElementById('maj').style.visibility='visible';
+                document.getElementById('rechercher').style.visibility='visible';
+                document.getElementById('creer').style.visibility='hidden';
+                <%}%>
+            }
+        </script>
     </head>
-    <body>
+    
+    
+    <body onLoad="masqueMAJ()">
         <%@ include file="includes/menu.html" %>
 
         <%-- Permet de faire disparaitre les alertes après 4 secondes--%>
@@ -26,17 +58,9 @@
             }, 4000);
         </script>
 
-        <%-- Permet de renseigner les champ du formulaire afin de mettre à jour une personne --%>
-        <script>
-            function modification(nom, prenom, adresse, ville)
-            {
-                document.getElementById('inputNom').value = nom;
-                alert(nom);
-                document.getElementById('inputPrenom').value = prenom;
-                document.getElementById('inputAdresse').value = adresse;
-                document.getElementById('inputVille').value = ville;
-            }
-        </script>
+
+        
+
 
         <%-- Les différentes alertes affichées --%>
         <% if ((String) request.getAttribute("result") == "ajout_suc") {%>
@@ -52,6 +76,20 @@
             <strong>Success! </strong>La personne à été supprimée avec succès
         </div> <%
             }%>
+            
+        <% if ((String) request.getAttribute("result") == "suppr_fail") {%>
+        <div class="alert_disparition alert alert alert-danger" id="popup" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Success! </strong>La personne à été supprimée avec succès
+        </div> <%
+            }%>
+            
+        <% if ((String) request.getAttribute("result") == "maj_suc") {%>
+        <div class="alert_disparition alert alert-success" id="popup" role="alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Success! </strong>La personne à été mise à jour avec succèss.
+        </div> <%
+            }%>
 
         <% if (request.getAttribute("personneASupprimer") != null) {
                 Personne p = (Personne) request.getAttribute("personneASupprimer");%>
@@ -62,16 +100,15 @@
             <a href=''>Non</a>
         </div> <%
             }%>
-
+            
+            
+        <% Personne personneAModifier = null;%>
         <% if (request.getAttribute("personneAMAJ") != null) {
-                Personne personneAModifier = (Personne) request.getAttribute("personneAMAJ");%>
-                <div onload="modification(<%personneAModifier.getNom();%>, <%personneAModifier.getPrenom();%>, <%personneAModifier.getAdresse();%>, <%personneAModifier.getVille();%>);">
-                </div>
-        <%--modification(<%out.println(personneAModifier.getNom());%>, <%out.println(personneAModifier.getPrenom());%>, <%out.println(personneAModifier.getAdresse());%>, <%out.println(personneAModifier.getVille());%>);--%>
-        <%}%>
-
-
-
+                personneAModifier = (Personne) request.getAttribute("personneAMAJ");
+            }
+            else{
+                personneAModifier = new Personne();
+            }%>
 
 
         <div class="panel panel-default">
@@ -80,32 +117,33 @@
                 <h1> Personne </h1>             
 
                 <form method="POST" action="ServletListePersonne">
-
+                    
+                    <input class="form-control" type="hidden" id="inputId" name="id" value =<%if(personneAModifier.getId() != null){out.println(personneAModifier.getId());}%>>
                     <div class="form-group">
                         <label for="inputNom" class="col-md-1 control-label"><p>Nom</p></label>
                         <div class="col-md-4">
-                            <input class="form-control" id="inputNom" name="nom">
+                            <input class="form-control" id="inputNom" name="nom" value ="<%if(personneAModifier.getId() != null){out.println(personneAModifier.getNom());}%>">
                         </div>
                     </div>
                     <br></br>
                     <div class="form-group">
                         <label for="inputPrenom" class="col-md-1 control-label"><p>Prénom</p></label>
                         <div class="col-md-4">
-                            <input class="form-control" id="inputPrenom" name="prenom">
+                            <input class="form-control" id="inputPrenom" name="prenom" value ="<%if(personneAModifier.getId() != null){out.println(personneAModifier.getPrenom());}%>">
                         </div>
                     </div>
                     <br></br>
                     <div class="form-group">
                         <label for="inputAdresse" class="col-md-1 control-label"><p>Adresse</p></label>
                         <div class="col-md-4">
-                            <input class="form-control" id="inputAdresse" name="adresse">
+                            <input class="form-control" id="inputAdresse" name="adresse" value ="<%if(personneAModifier.getId() != null){out.println(personneAModifier.getAdresse());}%>">
                         </div>
                     </div>
                     <br></br>
                     <div class="form-group">
                         <label for="inputVille" class="col-md-1 control-label"><p>Ville</p></label>
                         <div class="col-md-4">
-                            <input class="form-control" id="inputVille" name="ville">
+                            <input class="form-control" id="inputVille" name="ville" value ="<%if(personneAModifier.getId() != null){out.println(personneAModifier.getVille());}%>">
                         </div>
                     </div>
                     <br></br>
@@ -113,7 +151,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-default" id="rechercher" onclick="this.form.action = 'ServletListePersonne'">Rechercher</button>
                             <button type="submit" class="btn btn-default" id="creer" onclick="this.form.action = 'ServletCreationPersonne'">Créer</button>
-                            <button type="submit" class="btn btn-default" id="maj">Mettre à jour</button>
+                            <button type="submit" class="btn btn-default" id="maj" onclick="this.form.action = 'ServletFaireMAJPersonne'">Mettre à jour</button>
                         </div>
                     </div>
 
@@ -134,13 +172,17 @@
                         <th>Modifier</th>
                         <th>Supprimer</th>
                     </tr>
+                    
+
                     <% if (request.getAttribute("personnes") != null) {
                             Vector<Personne> personnes = (Vector<Personne>) request.getAttribute("personnes");
                             for (int i = 0; i < personnes.size(); i++) {
                                 Personne p = personnes.elementAt(i);
-                                out.println("<tr><td>" + p.getNom() + "</td><td>" + p.getPrenom() + "</td><td>" + p.getAdresse() + "</td><td>" + p.getVille() + "</td><td><a href='ServletMAJPersonne?id=" + p.getId() + "'>edition</a></td><td><a href='ServletEffacerPersonne?id=" + p.getId() + "'>supprimer</a></td></tr>");
+                               
+                                out.println("<tr><td>" + p.getNom() + "</td><td>" + p.getPrenom() + "</td><td>" + p.getAdresse() + "</td><td>" + p.getVille() + "</td><td><form method=\"POST\" action=\"ServletMAJPersonne\"><input type=\"hidden\" id=\"inputId\" name=\"id\" value=\"" + p.getId() + "\"><button type=\"submit\" class=\"btn btn-default\" id=\"edition\" onClick=\"modification()\">Edition</button></form></td><td><form method=\"POST\" action=\"ServletEffacerPersonne\"><input type=\"hidden\" id=\"inputId\" name=\"id\" value=\"" + p.getId() + "\"><button type=\"submit\" class=\"btn btn-default\" id=\"supprimer\" onClick=\"modification()\">Supprimer</button></form></td></tr>");
                             }
                         }%>
+                    </form>
                     <tr>
                         <td></td>
                         <td></td>

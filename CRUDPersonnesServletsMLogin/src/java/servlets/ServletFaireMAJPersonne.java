@@ -31,9 +31,12 @@ public class ServletFaireMAJPersonne extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String id = null, nom = null, prenom = null, adresse = null, ville = null;
+        
         try {
             if (HtmlHttpUtils.isAuthenticate(request)) {
                 id = request.getParameter("id");
+                System.out.println(id);
+                
                 nom = request.getParameter("nom");
                 prenom = request.getParameter("prenom");
                 adresse = request.getParameter("adresse");
@@ -44,9 +47,15 @@ public class ServletFaireMAJPersonne extends HttpServlet {
                 PersonneDAO pdao = new PersonneDAO();
 
                 pdao.update(p);
+                
+
+            }
+            
+                String result = "maj_suc";
+                request.setAttribute("result", result);
+                request.getRequestDispatcher("gestionPersonne.jsp").forward(request, response);
 
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
-            }
         } finally {
             out.close();
         }

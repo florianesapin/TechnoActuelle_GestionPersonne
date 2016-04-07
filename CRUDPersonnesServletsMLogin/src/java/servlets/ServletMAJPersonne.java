@@ -58,9 +58,10 @@ public class ServletMAJPersonne extends HttpServlet {
                             out.println("<input type='submit' value='MAJ personne'>");
                             out.println("</form>");
                         request.setAttribute("personneAMAJ", p);
-                        request.getRequestDispatcher("gestionPersonne.jsp").forward(request, response);
+                        
+                        
                         }
-
+                      request.getRequestDispatcher("gestionPersonne.jsp").forward(request, response);  
                     }
                 }
             }
